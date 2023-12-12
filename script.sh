@@ -19,8 +19,8 @@ distinguished_name = dn
 C=US
 ST=Ohio
 L=Cleveland
-O=My Organization
-OU=My Organizational Unit
+O=My company
+OU=My company unit
 emailAddress=my-email@example.com
 CN = www.hometask8.com
 EOF

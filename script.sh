@@ -7,12 +7,9 @@ systemctl start apache2
 systemctl enable apache2
 
 # Створення конфігураційного файлу SSL
-cat <<EOF > ssl-config.conf
+cat <<EOF > site.info
 [ req ]
-default_bits       = 2048
-default_md         = sha256
-prompt             = no
-encrypt_key        = no
+prompt = no
 distinguished_name = dn
 
 [ dn ]
@@ -26,7 +23,7 @@ CN = www.hometask8.com
 EOF
 
 # Генерація SSL сертифікату за допомогою openssl
-openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout /etc/ssl/private/apache-selfsigned.key -out /etc/ssl/certs/apache-selfsigned.crt -config ssl-config.conf
+openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout /etc/ssl/private/apache-selfsigned.key -out /etc/ssl/certs/apache-selfsigned.crt -config site.info
 
 # Створення конфігураційного файлу Apache
 cat <<EOF > apache-config.conf
@@ -46,4 +43,4 @@ a2ensite default-ssl
 systemctl restart apache2
 
 # Створення стартової веб сторінки
-echo "<html><body><h1>Welcome my unprotected web site</h1></body></html>" | tee /var/www/html/index.html
+echo "<html><body><h1>Welcome my unprotected web site</h1></body></html>" > /var/www/html/index.html
